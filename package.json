@@ -12,7 +12,8 @@
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
-    "ingest": "ts-node -r tsconfig-paths/register src/scripts/ingest.ts"
+    "ingest": "ts-node -r tsconfig-paths/register src/scripts/ingest.ts",
+    "ingest:copy": "ts-node -r tsconfig-paths/register src/scripts/ingest-copy.ts"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
@@ -21,6 +22,7 @@
     "@nestjs/typeorm": "^10.0.0",
     "csv-parse": "^5.5.3",
     "pg": "^8.11.3",
+    "pg-copy-streams": "^6.0.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
     "typeorm": "^0.3.17"

@@ -1,3 +1,6 @@
+# Challenge: PostgreSQL + ingestion script
+# Single command: docker-compose up
+
 services:
   postgres:
     image: postgres:15-alpine
@@ -18,20 +21,19 @@ services:
     networks:
       - sensor-network
 
-  app:
+  pipeline:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: sensor-data-app
+    container_name: sensor-data-pipeline
+    tty: true
+    stdin_open: true
     environment:
       DB_HOST: postgres
       DB_PORT: 5432
       DB_USERNAME: postgres
       DB_PASSWORD: postgres
       DB_NAME: sensor_data
-      NODE_ENV: development
-    ports:
-      - "3000:3000"
     volumes:
       - .:/app
       - /app/node_modules
@@ -40,7 +42,7 @@ services:
         condition: service_healthy
     networks:
       - sensor-network
-    command: npm run start:dev
+    command: ["sh", "/app/scripts/run-pipeline.sh"]
 
 volumes:
   postgres_data:

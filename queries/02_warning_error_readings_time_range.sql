@@ -1,5 +1,5 @@
 -- Query 2: All "warning" or "error" readings in a time range
--- Returns all readings with status 'warning' or 'error' within the specified time range
+-- Uses psql variables :start and :end (set via -v start=... -v end=... or env QUERY2_START, QUERY2_END)
 
 SELECT 
     id,
@@ -12,10 +12,5 @@ SELECT
     status
 FROM sensor_data
 WHERE status IN ('warning', 'error')
-  AND timestamp BETWEEN :start AND :end
+  AND timestamp BETWEEN :'start'::timestamptz AND :'end'::timestamptz
 ORDER BY timestamp DESC;
-
--- Example usage with specific dates:
--- WHERE status IN ('warning', 'error')
---   AND timestamp BETWEEN '2025-01-01 00:00:00'::timestamptz 
---                       AND '2025-12-31 23:59:59'::timestamptz
