@@ -26,3 +26,9 @@ lerna-debug.log*
 .env
 .env.local
 .env.*.local
+
+# Uploads
+/uploads
+!/uploads/.gitkeep
+
+*.md
